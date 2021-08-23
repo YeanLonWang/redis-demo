@@ -15,6 +15,9 @@ class CreatePostsTable extends Migration
     {
         Schema::create('posts', function (Blueprint $table) {
             $table->id();
+            $table->string('title')->comment('标题');
+            $table->text('content')->comment('文章内容');
+            $table->integer('views')->unsigned()->default(0)->comment('访问量');
             $table->timestamps();
         });
     }

@@ -24,3 +24,6 @@ Route::get('/connection', function (){
 Route::get('/site_visits', function(){
     return '网站全局访问量'.\Illuminate\Support\Facades\Redis::get('site_total_visits');
 });
+
+Route::get('/posts/popular', 'PostController@popular');
+Route::get('/posts/{post}', 'PostController@show');
