@@ -17,13 +17,13 @@ Route::get('/', function () {
     return view('welcome');
 });
 
-Route::get('/connection', function (){
-   dd(\Illuminate\Support\Facades\Redis::connection());
+Route::get('/connection', function () {
+    dd(\Illuminate\Support\Facades\Redis::connection());
 });
 
-Route::get('/site_visits', function(){
-    return '网站全局访问量'.\Illuminate\Support\Facades\Redis::get('site_total_visits');
+Route::get('/site_visits', function () {
+    return '网站全局访问量' . \Illuminate\Support\Facades\Redis::get('site_total_visits');
 });
 
-Route::get('/posts/popular', 'PostController@popular');
-Route::get('/posts/{post}', 'PostController@show');
+Route::get('/posts/popular', [\App\Http\Controllers\PostController::class, 'popular']);
+Route::get('/posts/{id}', [\App\Http\Controllers\PostController::class, 'show'])->where('id','[0-9]+');
