@@ -49,11 +49,14 @@ class PostRepo
 
     public function addViews(Post $post)
     {
-        $post->increment('views');
-        if ($post->save()) {
-            Redis::zincrby('popular_posts', 1, $post->id);
-        }
-        return $post->views;
+//        $post->increment('views');
+//        if ($post->save()) {
+//            Redis::zincrby('popular_posts', 1, $post->id);
+//        }
+//        return $post->views;
+        // 推送消息数据到队列，通过一部进程处理数据库更新
+        Redis::rpush('post-views-increment', $post->id);
+        return ++$post->views;
     }
 
     public function trending($num = 10)
