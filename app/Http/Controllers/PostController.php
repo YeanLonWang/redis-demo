@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Events\PostViewed;
 use App\Jobs\PostViewsIncrement;
 use App\Models\Post;
 use App\Repos\PostRepo;
@@ -25,7 +26,9 @@ class PostController extends Controller
 //        return 'Show Post #' . $post->id . ', Views:' . $views;
         $post = $this->postRepo->getById($id);
         // 分发队列任务
-        $this->dispatch(new PostViewsIncrement($post));
+//        $this->dispatch(new PostViewsIncrement($post));
+        // 触发文章浏览事件
+        event(new PostViewed($post));
         return "Show Post #{$post->id}, Views: {$post->views}";
     }
 
