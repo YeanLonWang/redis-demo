@@ -32,9 +32,9 @@ class PostRepo
 //
 //        return $post;
         $cacheKey = 'post_' . $id;
-//        return Cache::remember($cacheKey, 1 * 60 * 60, function () use ($id, $columns) {
+        return Cache::remember($cacheKey, 1 * 60 * 60, function () use ($id, $columns) {
             return $this->post->select($columns)->find($id);
-//        });
+        });
     }
 
     public function getByManyId(array $ids, array $columns = ['*'], callable $callback = null)
