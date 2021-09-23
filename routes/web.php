@@ -27,3 +27,8 @@ Route::get('/site_visits', function () {
 
 Route::get('/posts/popular', [\App\Http\Controllers\PostController::class, 'popular']);
 Route::get('/posts/{id}', [\App\Http\Controllers\PostController::class, 'show'])->where('id','[0-9]+');
+
+
+Route::get('/throttle-test', function(){
+    return '111';
+})->middleware('throttle:10,1');
