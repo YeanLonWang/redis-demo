@@ -31,9 +31,30 @@ class IncreasePostViews implements ShouldQueue
      */
     public function handle(PostViewed $event)
     {
-        //
-        if ($event->post->increment('views')) {
-            Redis::zincrby('popular_posts', 1, $event->post->id);
-        }
+//        //
+//        if ($event->post->increment('views')) {
+//            Redis::zincrby('popular_posts', 1, $event->post->id);
+//        }
+        // 通过限流器限制队列任务处理频率
+//        Redis::funnel("post.views.increment")
+//            ->limit(60)
+//            ->then(function () use ($event) {
+//                //
+//                if ($event->post->increment('views')) {
+//                    Redis::zincrby('popular_posts', 1, $event->post->id);
+//                }
+//            }, function () {
+//                $this->release(60);
+//            });
+        // 通过时间窗口限定处理频率 每分钟最多执行 60 次
+        Redis::throttle("posts.views.increment")
+            ->allow(60)->every(60)
+            ->then(function () use ($event) {
+                if($event->post->increment('view')){
+                    Redis::zincrby('popular_posts', 1, $event->post->id);
+                }
+            }, function () {
+                $this->release(60);
+            });
     }
 }
