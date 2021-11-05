@@ -31,6 +31,44 @@ Route::get('/posts/create', [\App\Http\Controllers\PostController::class, 'creat
 Route::post('/posts/store', [\App\Http\Controllers\PostController::class, 'store']);
 
 
+Route::get('/collection', [\App\Http\Controllers\CollectionController::class, 'collection']);
+Route::get('/collection/page', [\App\Http\Controllers\CollectionController::class, 'paginate']);
+
+Route::get('/show-post/{id}', '\App\Http\Controllers\PostShowController');
+
+Route::get('/custom-order', function () {
+    return view('custom_order.blade_order');
+});
+
 Route::get('/throttle-test', function () {
     return '111';
 })->middleware('throttle:10,1');
+
+Route::get('/errors/{code}', function ($code = 500) {
+    return abort($code);
+});
+
+//获取数据
+Route::get('/data-get', function () {
+    $arr = [
+        0 =>
+            ['user_id' => '用户id1', 'created_at' => '时间戳1', 'product' => (object)[
+                'id' => 1,
+                'name' => 'learn php',
+                'price' => 10
+            ], 'total_price' => 30],
+        1 =>
+            ['user_id' => '用户id2', 'created_at' => '时间戳2', 'product' => (object)[
+                'id' => 2,
+                'name' => 'learn laravel',
+                'price' => 20
+            ], 'total_price' => 40],
+        2 => ['user_id' => '用户id3', 'created_at' => '时间戳3', 'product' => (object)[
+            'id' => 3,
+            'name' => 'learn go',
+            'price' => 30
+        ], 'total_price' => 60],
+    ];
+    $names = data_get($arr, '*.product.name');
+    dd($names);
+});
