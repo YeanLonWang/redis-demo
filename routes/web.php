@@ -72,3 +72,13 @@ Route::get('/data-get', function () {
     $names = data_get($arr, '*.product.name');
     dd($names);
 });
+
+Route::get('/bubble', [\App\Http\Controllers\SortController::class, 'bubble_sort']);
+
+Route::get('/insertion', [\App\Http\Controllers\SortController::class, 'insertion_sort']);
+
+Route::get('/selection', [\App\Http\Controllers\SortController::class, 'selection_sort']);
+
+Route::get('/merge_sort', [\App\Http\Controllers\MergeSortController::class, 'merge_sort']);
+
+Route::get('/quick_sort',[\App\Http\Controllers\QuickSortController::class,'quick_sort']);
