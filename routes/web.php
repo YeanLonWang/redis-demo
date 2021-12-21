@@ -81,4 +81,6 @@ Route::get('/selection', [\App\Http\Controllers\SortController::class, 'selectio
 
 Route::get('/merge_sort', [\App\Http\Controllers\MergeSortController::class, 'merge_sort']);
 
-Route::get('/quick_sort',[\App\Http\Controllers\QuickSortController::class,'quick_sort']);
+Route::get('/quick_sort', [\App\Http\Controllers\QuickSortController::class, 'quick_sort']);
+
+Route::get('/binary_search', [\App\Http\Controllers\BinarySearchController::class, 'binary_search']);
