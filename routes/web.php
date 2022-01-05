@@ -89,3 +89,5 @@ Route::get('testResponseJson', function () {
     return response()->json(['name' => 'LaravelAcademy', 'passwd' => 'LaravelAcademy.org'])
         ->setCallback(request()->input('callback'));
 });
+
+Route::get('/redis-lock', [\App\Http\Controllers\RedisLockController::class, 'index']);
