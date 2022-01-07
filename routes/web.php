@@ -91,3 +91,17 @@ Route::get('testResponseJson', function () {
 });
 
 Route::get('/redis-lock', [\App\Http\Controllers\RedisLockController::class, 'index']);
+
+Route::get('trade', [\App\Http\Controllers\TradeController::class, 'trade']);
+
+Route::get('expires', function () {
+    return response('Test Expires Header')->setExpires(new DateTime(date(DATE_RFC7231)));
+});
+
+Route::get('cache_control', function () {
+    return response('Test Cache-Control Header')->setClientTtl(3600);
+});
+
+Route::get('/auth/basic', function () {
+    return 'HTTP Basic Auth';
+})->middleware('auth.basic');
