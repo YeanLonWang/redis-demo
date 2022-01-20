@@ -83,6 +83,9 @@ Route::get('/merge_sort', [\App\Http\Controllers\MergeSortController::class, 'me
 
 Route::get('/quick_sort', [\App\Http\Controllers\QuickSortController::class, 'quick_sort']);
 
+// 约瑟夫环
+Route::get('/joseph/{type?}', [\App\Http\Controllers\JosephController::class, 'joseph']);
+
 Route::get('/binary_search', [\App\Http\Controllers\BinarySearchController::class, 'binary_search']);
 
 Route::get('testResponseJson', function () {
